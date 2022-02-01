@@ -12,18 +12,9 @@ KBDLLHOOKSTRUCT kbdStruct;
 
 
 HDC dng = GetDC(NULL);
-const int posX = 1282;
-const int posY = 1291;
-const int pistolaBHigh = 40;
-const int escopetaBLow = 180;
-const int sniperGHigh = 60;
-int g;
-int b;
 
 void SetHook();
 void ReleaseHook();
-void daleN();
-void daleP();
 LRESULT __stdcall HookCallback(int nCode, WPARAM wParam, LPARAM lParam);
 
 void SetHook()
