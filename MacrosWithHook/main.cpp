@@ -55,10 +55,6 @@ LRESULT __stdcall HookCallback(int nCode, WPARAM wParam, LPARAM lParam)
         // the action is valid: HC_ACTION.
         if (wParam == WM_KEYDOWN)
         {
-            COLORREF c;
-            c = GetPixel(dng,posX,posY);
-            g = (int)GetGValue(c);
-            b = (int)GetBValue(c);
             // lParam is the pointer to the struct containing the data needed, so cast and assign it to kdbStruct.
             kbdStruct = *((KBDLLHOOKSTRUCT*)lParam);
             // a key (non-system) is pressed.
@@ -66,26 +62,11 @@ LRESULT __stdcall HookCallback(int nCode, WPARAM wParam, LPARAM lParam)
             //0x50 p
             switch(kbdStruct.vkCode)
             {
-                case 0x39: //CAMBIO A PISTOLA
-                    if(b < pistolaBHigh)return -1;
-                    else if(b > escopetaBLow)daleN();
-                    else if(g < sniperGHigh)daleP();
-                    else break;
-                    return -1;
+                case 0x43: //c
+                    //macro content
                     break;
-                case 0x43: //CAMBIO A ESCOPETA
-                    if(b > escopetaBLow)return -1;
-                    else if(b < pistolaBHigh)daleP();
-                    else if(g < sniperGHigh)daleN();
-                    else break;
-                    return -1;
-                    break;
-                case 0x56: //CAMBIO A SNIPER
-                    if(g < sniperGHigh)return -1;
-                    else if(b > escopetaBLow)daleP();
-                    else if(b < pistolaBHigh)daleN();
-                    else break;
-                    return -1;
+                case 0x56: //v
+                    //macro content
                     break;
             }
         }
@@ -103,29 +84,4 @@ int main()
     // I used this to test the keyboard hook functionality. If you want to test it, keep it in ;)
     MSG msg;
     while (GetMessage(&msg, NULL, 0, 0)) { }
-}
-
-void daleN(){
-    keybd_event(0x4E, 0x1C, KEYEVENTF_EXTENDEDKEY | 0, 0);
-    Sleep(10);
-    keybd_event(0x4E, 0x1C, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, 0);
-    return;
-}
-void daleP(){
-//    SHORT key;
-//    UINT mappedkey;
-//    INPUT input = { 0 };
-//    key = VkKeyScan('p');
-//    mappedkey = MapVirtualKey(LOBYTE(key), 0);
-//    input.type = INPUT_KEYBOARD;
-//    input.ki.dwFlags = KEYEVENTF_SCANCODE;
-//    input.ki.wScan = mappedkey;
-//    SendInput(1, &input, sizeof(input));
-//    Sleep(10);
-//    input.ki.dwFlags = KEYEVENTF_SCANCODE | KEYEVENTF_KEYUP;
-//    SendInput(1, &input, sizeof(input));
-    keybd_event(0x50, 0x1C, KEYEVENTF_EXTENDEDKEY | 0, 0);
-    Sleep(10);
-    keybd_event(0x50, 0x1C, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, 0);
-    return;
 }
